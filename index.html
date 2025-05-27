@@ -27,8 +27,8 @@
         .heart {
             position: absolute;
             pointer-events: none;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
         }
         .heart svg {
             fill: #ff0000;
@@ -46,9 +46,9 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        // Tạo ngôi sao nền
+        // Tạo ngôi sao nền (giảm xuống 50)
         const stars = [];
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 50; i++) {
             stars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
@@ -68,37 +68,27 @@
             });
         }
 
-        // Các dòng chữ tỏ tình (20 dòng)
+        // Các dòng chữ tỏ tình (giảm xuống 10)
         const messages = [
-            { text: "Anh yêu em", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Diệp yêu Phương rất nhiều", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Em là tình yêu của anh", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Anh mãi bên em", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Phương là tất cả của Diệp", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Yêu em đến mãi mãi", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Em là ánh sáng của anh", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Trái tim anh thuộc về em", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Mỗi ngày anh yêu em hơn", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Em là giấc mơ của anh", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Anh sống vì em", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Em là định mệnh của anh", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Yêu em là hạnh phúc", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Anh và em mãi mãi", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Em là ngôi sao của anh", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Cả thế giới anh dành cho em", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Em là hơi thở của anh", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Yêu em không ngừng nghỉ", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Em là vĩnh cửu của anh", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
-            { text: "Anh yêu em đến cuối chân trời", x: Math.random() * (canvas.width - 200) + 100, y: Math.random() * (canvas.height - 200) + 100, z: Math.random() * 200 + 50, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 }
+            { text: "Anh yêu em", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Diệp yêu Phương rất nhiều", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Em là tình yêu của anh", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Anh mãi bên em", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Phương là tất cả của Diệp", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Yêu em đến mãi mãi", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Em là ánh sáng của anh", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Trái tim anh thuộc về em", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Mỗi ngày anh yêu em hơn", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 },
+            { text: "Em là giấc mơ của anh", x: Math.random() * (canvas.width - 300) + 150, y: Math.random() * (canvas.height - 300) + 150, z: Math.random() * 200 + 100, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, vz: (Math.random() - 0.5) * 0.5 }
         ];
 
-        // Tạo trái tim
+        // Tạo trái tim (giảm xuống 10)
         const hearts = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 10; i++) {
             hearts.push({
-                x: Math.random() * (canvas.width - 200) + 100,
-                y: Math.random() * (canvas.height - 200) + 100,
-                z: Math.random() * 200 + 50,
+                x: Math.random() * (canvas.width - 300) + 150,
+                y: Math.random() * (canvas.height - 300) + 150,
+                z: Math.random() * 200 + 100,
                 vx: (Math.random() - 0.5) * 3,
                 vy: (Math.random() - 0.5) * 3,
                 vz: (Math.random() - 0.5) * 0.5
@@ -129,7 +119,7 @@
             // Cập nhật vị trí và thuộc tính các dòng chữ
             messages.forEach((msg, index) => {
                 const scale = 200 / msg.z; // Tính tỷ lệ dựa trên độ sâu Z
-                const fontSize = 18 * scale; // Giảm kích thước chữ cơ bản từ 24 xuống 18
+                const fontSize = 20 * scale; // Tăng kích thước chữ cơ bản lên 20
 
                 const div = textElements[index];
                 div.style.left = msg.x + 'px';
@@ -142,15 +132,15 @@
                 msg.z += msg.vz;
 
                 // Giới hạn trong vùng an toàn
-                if (msg.x < 100 || msg.x > canvas.width - 100) msg.vx = -msg.vx;
-                if (msg.y < 100 || msg.y > canvas.height - 100) msg.vy = -msg.vy;
-                if (msg.z < 50 || msg.z > 250) msg.vz = -msg.vz;
+                if (msg.x < 150 || msg.x > canvas.width - 150) msg.vx = -msg.vx;
+                if (msg.y < 150 || msg.y > canvas.height - 150) msg.vy = -msg.vy;
+                if (msg.z < 100 || msg.z > 300) msg.vz = -msg.vz;
             });
 
             // Cập nhật vị trí và thuộc tính trái tim
             hearts.forEach((heart, index) => {
                 const scale = 200 / heart.z; // Tính tỷ lệ dựa trên độ sâu Z
-                const size = 20 * scale; // Kích thước trái tim thay đổi theo Z
+                const size = 24 * scale; // Tăng kích thước trái tim cơ bản lên 24
 
                 const div = heartElements[index];
                 div.style.left = heart.x + 'px';
@@ -164,9 +154,9 @@
                 heart.z += heart.vz;
 
                 // Giới hạn trong vùng an toàn
-                if (heart.x < 100 || heart.x > canvas.width - 100) heart.vx = -heart.vx;
-                if (heart.y < 100 || heart.y > canvas.height - 100) heart.vy = -heart.vy;
-                if (heart.z < 50 || heart.z > 250) heart.vz = -heart.vz;
+                if (heart.x < 150 || heart.x > canvas.width - 150) heart.vx = -heart.vx;
+                if (heart.y < 150 || heart.y > canvas.height - 150) heart.vy = -heart.vy;
+                if (heart.z < 100 || heart.z > 300) heart.vz = -heart.vz;
             });
 
             requestAnimationFrame(animate);
@@ -175,6 +165,15 @@
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            // Cập nhật lại vùng an toàn khi thay đổi kích thước
+            messages.forEach(msg => {
+                msg.x = Math.min(Math.max(msg.x, 150), canvas.width - 150);
+                msg.y = Math.min(Math.max(msg.y, 150), canvas.height - 150);
+            });
+            hearts.forEach(heart => {
+                heart.x = Math.min(Math.max(heart.x, 150), canvas.width - 150);
+                heart.y = Math.min(Math.max(heart.y, 150), canvas.height - 150);
+            });
         });
 
         animate();
