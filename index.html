@@ -54,6 +54,15 @@
       pointer-events: none;
     }
 
+    /* Falling hearts */
+    .falling-heart {
+      position: absolute;
+      color: #ff4d4d;
+      font-size: 1.5rem;
+      text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
+      pointer-events: none;
+    }
+
     /* Romantic phrases */
     .phrase {
       position: absolute;
@@ -65,13 +74,77 @@
       pointer-events: none;
     }
 
+    /* Centered heart */
+    .center-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      color: #ff4d4d;
+      text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
+      cursor: pointer;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .center-heart:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* Message box */
+    .message-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.7);
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      color: #fff;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      z-index: 101;
+      display: none;
+      box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+    }
+
+    .message-box button {
+      margin-top: 1rem;
+      padding: 0.5rem 2rem;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5rem;
+      color: #fff;
+      background: #ff4d4d;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .message-box button:hover {
+      background: #e63939;
+    }
+
     /* Ensure responsiveness */
     @media (max-width: 768px) {
       .phrase {
         font-size: clamp(1rem, 3vw, 1.5rem);
       }
-      .heart {
+      .heart, .falling-heart {
+        font-size: 1rem;
+      }
+      .center-heart {
+        font-size: 3rem;
+      }
+      .message-box {
         font-size: 1.5rem;
+        padding: 1rem;
+      }
+      .message-box button {
+        font-size: 1.2rem;
+        padding: 0.4rem 1.5rem;
       }
     }
 
@@ -90,6 +163,12 @@
     <div class="container text-center">
       <div id="phrases"></div>
       <div id="hearts"></div>
+      <div id="falling-hearts"></div>
+      <div class="center-heart">♥</div>
+      <div class="message-box" id="messageBox">
+        <p>Em có đồng ý làm người yêu anh không?</p>
+        <button id="yesButton">Có</button>
+      </div>
     </div>
   </div>
 
@@ -113,11 +192,33 @@
 
     // Romantic phrases
     const phrases = [
-      "Diệp yêu Phương",
+      "Diệp yêu Phương rất nhiều",
       "Anh yêu em rất nhiều",
       "Em là cả thế giới của anh",
       "Tình yêu của anh dành cho em là vô tận",
-      "Bên em là điều hạnh phúc nhất cuộc đời anh"
+      "Bên em là điều hạnh phúc nhất cuộc đời anh",
+      "Diệp yêu Phương rất nhiều",
+      "Phạm Hiểu Phương anh yêu em",
+      "Em là ánh sáng của cuộc đời anh",
+      "Trái tim anh chỉ đập vì em",
+      "Yêu em đến mãi mãi",
+      "Em có đồng ý làm người yêu anh không ?",
+      "Em là giấc mơ ngọt ngào nhất của anh",
+      "Anh sẽ mãi bên em, mãi mãi",
+      "Diệp yêu Phương rất nhiều",
+      "Em là ngôi sao sáng nhất của anh",
+      "Tình yêu của chúng ta như bầu trời đêm",
+      "Anh nguyện dành cả đời để yêu thương em",
+      "Em có đồng ý làm người yêu anh không ?",
+      "Diệp yêu Phương rất nhiều",
+      "Mỗi ngày bên em là một ngày hạnh phúc",
+      "Anh yêu nụ cười của em",
+      "Em là tất cả những gì anh mơ ước",
+      "Tình yêu của anh là dành cho em mãi mãi",
+      "Bên em, anh tìm thấy ý nghĩa cuộc đời",
+      "Diệp yêu Phương rất nhiều",
+      "Em là định mệnh của anh",
+      "Yêu em là điều tuyệt vời nhất anh từng làm"
     ];
 
     const phrasesContainer = document.getElementById('phrases');
@@ -139,7 +240,7 @@
     for (let i = 0; i < numHearts; i++) {
       const heart = document.createElement('div');
       heart.className = 'heart';
-      heart.innerHTML = '&hearts;';
+      heart.innerHTML = '♥';
       heart.style.left = `${Math.random() * 100}vw`;
       heart.style.top = `${Math.random() * 100}vh`;
       heart.style.zIndex = Math.floor(Math.random() * 10);
@@ -174,6 +275,57 @@
         direction: 'alternate',
         loop: true
       });
+    });
+
+    // Center heart interaction
+    const centerHeart = document.querySelector('.center-heart');
+    const messageBox = document.getElementById('messageBox');
+    const yesButton = document.getElementById('yesButton');
+    const fallingHeartsContainer = document.getElementById('falling-hearts');
+
+    centerHeart.addEventListener('click', () => {
+      centerHeart.style.display = 'none';
+      messageBox.style.display = 'block';
+      anime({
+        targets: messageBox,
+        scale: [0, 1],
+        opacity: [0, 1],
+        duration: 1000,
+        easing: 'easeOutElastic(1, .6)'
+      });
+    });
+
+    // Continuous falling hearts effect
+    let isRaining = false;
+    function createHeartBatch() {
+      if (!isRaining) return;
+      const numHeartsPerBatch = 10; // Number of hearts per batch
+      for (let i = 0; i < numHeartsPerBatch; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'falling-heart';
+        heart.innerHTML = '♥';
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.top = `-${Math.random() * 20}vh`;
+        heart.style.opacity = 0.7 + Math.random() * 0.3;
+        fallingHeartsContainer.appendChild(heart);
+
+        anime({
+          targets: heart,
+          translateY: '100vh',
+          translateX: () => anime.random(-50, 50),
+          rotate: () => anime.random(-45, 45),
+          duration: () => anime.random(2000, 4000),
+          easing: 'easeInQuad',
+          complete: () => heart.remove()
+        });
+      }
+    }
+
+    yesButton.addEventListener('click', () => {
+      messageBox.style.display = 'none';
+      isRaining = true;
+      createHeartBatch(); // Start immediately
+      setInterval(createHeartBatch, 1000); // Create new batches every second
     });
   </script>
 </body>
