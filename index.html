@@ -49,8 +49,8 @@
     .heart {
       position: absolute;
       color: #ff4d4d;
-      font-size: 2rem;
-      text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
+      font-size: 1.5rem;
+      text-shadow: 0 0 8px rgba(255, 77, 77, 0.8);
       pointer-events: none;
     }
 
@@ -58,8 +58,8 @@
     .falling-heart {
       position: absolute;
       color: #ff4d4d;
-      font-size: 1.5rem;
-      text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
+      font-size: 1rem;
+      text-shadow: 0 0 8px rgba(255, 77, 77, 0.8);
       pointer-events: none;
     }
 
@@ -68,8 +68,8 @@
       position: absolute;
       color: #fff;
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 0 0 25px rgba(255, 77, 77, 0.5);
+      font-size: clamp(1.2rem, 3.5vw, 2rem);
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 77, 77, 0.5);
       white-space: nowrap;
       pointer-events: none;
     }
@@ -80,9 +80,9 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 5rem;
+      font-size: 4rem;
       color: #ff4d4d;
-      text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
+      text-shadow: 0 0 15px rgba(255, 77, 77, 0.8);
       cursor: pointer;
       z-index: 100;
       transition: transform 0.3s ease;
@@ -99,26 +99,27 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background: rgba(0, 0, 0, 0.7);
-      padding: 2rem;
-      border-radius: 15px;
+      padding: 1.5rem;
+      border-radius: 12px;
       text-align: center;
       color: #fff;
       font-family: 'Great Vibes', cursive;
-      font-size: 2rem;
+      font-size: 1.8rem;
       z-index: 101;
       display: none;
-      box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+      box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
+      max-width: 90%;
     }
 
     .message-box button {
-      margin-top: 1rem;
-      padding: 0.5rem 2rem;
+      margin-top: 0.8rem;
+      padding: 0.4rem 1.5rem;
       font-family: 'Great Vibes', cursive;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #fff;
       background: #ff4d4d;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
@@ -127,24 +128,28 @@
       background: #e63939;
     }
 
-    /* Ensure responsiveness */
-    @media (max-width: 768px) {
+    /* Responsive adjustments for iPhone 11 (~414px viewport width) */
+    @media (max-width: 414px) {
       .phrase {
-        font-size: clamp(1rem, 3vw, 1.5rem);
+        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
       }
-      .heart, .falling-heart {
+      .heart {
         font-size: 1rem;
       }
+      .falling-heart {
+        font-size: 0.8rem;
+      }
       .center-heart {
-        font-size: 3rem;
+        font-size: 2.5rem;
       }
       .message-box {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         padding: 1rem;
+        max-width: 80%;
       }
       .message-box button {
-        font-size: 1.2rem;
-        padding: 0.4rem 1.5rem;
+        font-size: 1rem;
+        padding: 0.3rem 1.2rem;
       }
     }
 
@@ -177,12 +182,12 @@
   <script>
     // Generate stars
     const starsContainer = document.querySelector('.stars');
-    const numStars = 200;
+    const numStars = 150; // Reduced for better performance on mobile
 
     for (let i = 0; i < numStars; i++) {
       const star = document.createElement('div');
       star.className = 'star';
-      star.style.width = `${Math.random() * 3 + 1}px`;
+      star.style.width = `${Math.random() * 2 + 1}px`;
       star.style.height = star.style.width;
       star.style.left = `${Math.random() * 100}vw`;
       star.style.top = `${Math.random() * 100}vh`;
@@ -192,31 +197,26 @@
 
     // Romantic phrases
     const phrases = [
-      "Diệp yêu Phương rất nhiều",
+      "Diệp yêu Phương",
       "Anh yêu em rất nhiều",
       "Em là cả thế giới của anh",
       "Tình yêu của anh dành cho em là vô tận",
       "Bên em là điều hạnh phúc nhất cuộc đời anh",
-      "Diệp yêu Phương rất nhiều",
-      "Phạm Hiểu Phương anh yêu em",
+      "Phạm Hiểu Phương Anh yêu em",
       "Em là ánh sáng của cuộc đời anh",
       "Trái tim anh chỉ đập vì em",
       "Yêu em đến mãi mãi",
-      "Em có đồng ý làm người yêu anh không ?",
       "Em là giấc mơ ngọt ngào nhất của anh",
       "Anh sẽ mãi bên em, mãi mãi",
-      "Diệp yêu Phương rất nhiều",
       "Em là ngôi sao sáng nhất của anh",
       "Tình yêu của chúng ta như bầu trời đêm",
       "Anh nguyện dành cả đời để yêu thương em",
-      "Em có đồng ý làm người yêu anh không ?",
-      "Diệp yêu Phương rất nhiều",
+      "Em là nhịp đập của trái tim anh",
       "Mỗi ngày bên em là một ngày hạnh phúc",
       "Anh yêu nụ cười của em",
       "Em là tất cả những gì anh mơ ước",
       "Tình yêu của anh là dành cho em mãi mãi",
       "Bên em, anh tìm thấy ý nghĩa cuộc đời",
-      "Diệp yêu Phương rất nhiều",
       "Em là định mệnh của anh",
       "Yêu em là điều tuyệt vời nhất anh từng làm"
     ];
@@ -229,13 +229,13 @@
       phrase.style.left = `${Math.random() * 100}vw`;
       phrase.style.top = `${Math.random() * 100}vh`;
       phrase.style.zIndex = Math.floor(Math.random() * 10);
-      phrase.style.transform = `translateZ(${Math.random() * 200 - 100}px) scale(${0.7 + Math.random() * 0.3})`;
+      phrase.style.transform = `translateZ(${Math.random() * 150 - 75}px) scale(${0.6 + Math.random() * 0.3})`;
       phrasesContainer.appendChild(phrase);
     });
 
     // Generate hearts
     const heartsContainer = document.getElementById('hearts');
-    const numHearts = 20;
+    const numHearts = 15; // Reduced for mobile performance
 
     for (let i = 0; i < numHearts; i++) {
       const heart = document.createElement('div');
@@ -244,7 +244,7 @@
       heart.style.left = `${Math.random() * 100}vw`;
       heart.style.top = `${Math.random() * 100}vh`;
       heart.style.zIndex = Math.floor(Math.random() * 10);
-      heart.style.transform = `translateZ(${Math.random() * 200 - 100}px) scale(${0.5 + Math.random() * 0.5})`;
+      heart.style.transform = `translateZ(${Math.random() * 150 - 75}px) scale(${0.4 + Math.random() * 0.4})`;
       heart.style.opacity = 0.7 + Math.random() * 0.3;
       heartsContainer.appendChild(heart);
     }
@@ -253,9 +253,9 @@
     document.querySelectorAll('.phrase').forEach(phrase => {
       anime({
         targets: phrase,
-        translateX: () => anime.random(-200, 200),
-        translateY: () => anime.random(-200, 200),
-        translateZ: () => anime.random(-100, 100),
+        translateX: () => anime.random(-150, 150),
+        translateY: () => anime.random(-150, 150),
+        translateZ: () => anime.random(-75, 75),
         duration: () => anime.random(10000, 20000),
         easing: 'easeInOutSine',
         direction: 'alternate',
@@ -267,9 +267,9 @@
     document.querySelectorAll('.heart').forEach(heart => {
       anime({
         targets: heart,
-        translateX: () => anime.random(-150, 150),
-        translateY: () => anime.random(-150, 150),
-        translateZ: () => anime.random(-100, 100),
+        translateX: () => anime.random(-100, 100),
+        translateY: () => anime.random(-100, 100),
+        translateZ: () => anime.random(-75, 75),
         duration: () => anime.random(8000, 15000),
         easing: 'easeInOutQuad',
         direction: 'alternate',
@@ -299,7 +299,7 @@
     let isRaining = false;
     function createHeartBatch() {
       if (!isRaining) return;
-      const numHeartsPerBatch = 10; // Number of hearts per batch
+      const numHeartsPerBatch = 8; // Reduced for iPhone 11 performance
       for (let i = 0; i < numHeartsPerBatch; i++) {
         const heart = document.createElement('div');
         heart.className = 'falling-heart';
@@ -312,7 +312,7 @@
         anime({
           targets: heart,
           translateY: '100vh',
-          translateX: () => anime.random(-50, 50),
+          translateX: () => anime.random(-30, 30),
           rotate: () => anime.random(-45, 45),
           duration: () => anime.random(2000, 4000),
           easing: 'easeInQuad',
@@ -325,7 +325,7 @@
       messageBox.style.display = 'none';
       isRaining = true;
       createHeartBatch(); // Start immediately
-      setInterval(createHeartBatch, 1000); // Create new batches every second
+      setInterval(createHeartBatch, 1200); // Slightly slower interval for mobile
     });
   </script>
 </body>
