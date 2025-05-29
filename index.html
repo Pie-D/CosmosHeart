@@ -1,28 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Romantic Starry Night</title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts: Great Vibes for romantic cursive font -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
   <!-- Anime.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+    * {
+      box-sizing: border-box;
     }
 
-    /* Starry background */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+      overflow: hidden;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .scene {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      perspective: 1000px;
+    }
+
     .stars {
       position: absolute;
       top: 0;
@@ -30,6 +44,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
+      z-index: 1;
     }
 
     .star {
@@ -45,67 +60,51 @@
       100% { opacity: 0.8; }
     }
 
-    /* Hearts */
-    .heart {
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 !important;
+    }
+
+    .phrase, .heart, .falling-heart {
       position: absolute;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .phrase {
+      color: #fff;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      text-shadow: 0 0 15px rgba(255,255,255,0.7), 0 0 25px rgba(255,77,77,0.5);
+    }
+
+    .heart, .falling-heart {
       color: #ff4d4d;
       font-size: 2rem;
       text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
-      pointer-events: none;
     }
 
-    /* Falling hearts */
-    .falling-heart {
-      position: absolute;
-      color: #ff4d4d;
-      font-size: 1.5rem;
-      text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
-      pointer-events: none;
-    }
-
-    /* Romantic phrases */
-    .phrase {
-      position: absolute;
-      color: #fff;
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 0 0 25px rgba(255, 77, 77, 0.5);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    /* Centered heart */
     .center-heart {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       font-size: 5rem;
       color: #ff4d4d;
       text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
       cursor: pointer;
-      z-index: 100;
       transition: transform 0.3s ease;
+      z-index: 100;
     }
 
     .center-heart:hover {
-      transform: translate(-50%, -50%) scale(1.1);
+      transform: scale(1.1);
     }
 
-    /* Message box */
     .message-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       background: rgba(0, 0, 0, 0.7);
       padding: 2rem;
       border-radius: 15px;
       text-align: center;
       color: #fff;
-      font-family: 'Great Vibes', cursive;
       font-size: 2rem;
-      z-index: 101;
       display: none;
       box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
     }
@@ -113,7 +112,6 @@
     .message-box button {
       margin-top: 1rem;
       padding: 0.5rem 2rem;
-      font-family: 'Great Vibes', cursive;
       font-size: 1.5rem;
       color: #fff;
       background: #ff4d4d;
@@ -127,20 +125,11 @@
       background: #e63939;
     }
 
-    /* Final message */
     .final-message {
-      position: absolute;
-      top: 60%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       color: #fff;
-      font-family: 'Great Vibes', cursive;
       font-size: clamp(2.5rem, 6vw, 4rem);
       text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 77, 77, 0.6);
-      text-align: center;
-      z-index: 50;
       display: none;
-      pointer-events: none;
     }
 
     .final-message .date {
@@ -148,65 +137,40 @@
       margin-top: 0.5rem;
     }
 
-    /* Ensure responsiveness */
     @media (max-width: 768px) {
-      .phrase {
-        font-size: clamp(1rem, 3vw, 1.5rem);
-      }
-      .heart, .falling-heart {
-        font-size: 1rem;
-      }
-      .center-heart {
-        font-size: 3rem;
-      }
-      .message-box {
-        font-size: 1.5rem;
-        padding: 1rem;
-      }
-      .message-box button {
-        font-size: 1.2rem;
-        padding: 0.4rem 1.5rem;
-      }
-      .final-message {
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
-      }
-      .final-message .date {
-        font-size: clamp(1rem, 2vw, 1.5rem);
-      }
-    }
-
-    /* 3D container for layering */
-    .scene {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      perspective: 1000px;
+      .phrase { font-size: clamp(1rem, 3vw, 1.5rem); }
+      .heart, .falling-heart { font-size: 1rem; }
+      .center-heart { font-size: 3rem; }
+      .message-box { font-size: 1.5rem; padding: 1rem; }
+      .message-box button { font-size: 1.2rem; padding: 0.4rem 1.5rem; }
+      .final-message { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+      .final-message .date { font-size: clamp(1rem, 2vw, 1.5rem); }
     }
   </style>
 </head>
 <body>
   <div class="scene">
     <div class="stars"></div>
-    <div class="container text-center">
+    <div class="container d-flex flex-column align-items-center justify-content-center">
       <div id="phrases"></div>
       <div id="hearts"></div>
       <div id="falling-hearts"></div>
-      <div class="center-heart">♥</div>
+      <div class="center-heart" id="heart">♥</div>
       <div class="message-box" id="messageBox">
         <p>Em có đồng ý làm người yêu anh không?</p>
         <button id="yesButton">Có</button>
       </div>
       <div class="final-message" id="finalMessage">
-        <div>Anh và Em là của nhau</div>
-        <div class="date">D-P  <29/05/2025>  P-D</div>
+        <div>Cảm ơn em đã đồng ý !</div>
+        <div>Anh yêu Em </div>
+        <div class="date"> - 29/05/2025 - </div>
       </div>
     </div>
   </div>
 
-  <!-- Bootstrap JS and Popper.js -->
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Generate stars
     const starsContainer = document.querySelector('.stars');
     const numStars = 200;
 
@@ -221,158 +185,76 @@
       starsContainer.appendChild(star);
     }
 
-    // Romantic phrases
     const phrases = [
-      "Diệp yêu Phương",
-      "Anh yêu em rất nhiều",
-      "Em là cả thế giới của anh",
-      "Tình yêu của anh dành cho em là vô tận",
-      "Bên em là điều hạnh phúc nhất cuộc đời anh",
-      "Phạm Hiểu Phương Anh yêu em",
-      "Em là ánh sáng của cuộc đời anh",
-      "Trái tim anh chỉ đập vì em",
-      "Yêu em đến mãi mãi",
-      "Em là giấc mơ ngọt ngào nhất của anh",
-      "Anh sẽ mãi bên em, mãi mãi",
-      "Em là ngôi sao sáng nhất của anh",
-      "Phương ơi, anh yêu em",
-      "Anh nguyện dành cả đời để yêu thương em",
-      "Em là nhịp đập của trái tim anh",
-      "Mỗi ngày bên em là một ngày hạnh phúc",
-      "Anh yêu nụ cười của em",
-      "Em là tất cả những gì anh mơ ước",
-      "Em là định mệnh của anh",
+      "Diệp yêu Phương rất nhiều", "Em là cả thế giới của anh",
+      "Tình yêu của anh dành cho em là vô tận", "Diệp yêu Phương rất nhiều",
+      "Phạm Hiểu Phương Anh yêu em", "Em là ánh sáng của cuộc đời anh",
+      "Em có đồng ý làm ny của anh ?", "Yêu em đến mãi mãi",
+      "Em là giấc mơ ngọt ngào nhất của anh", "Anh sẽ mãi bên em, mãi mãi",
+      "Em là ngôi sao sáng nhất của anh", "Tình yêu của chúng ta như bầu trời đêm",
+      "Anh nguyện dành cả đời để yêu thương em", "Diệp yêu Phương rất nhiều",
+      "Em có đồng ý làm ny anh không ?", "Anh yêu nụ cười của em",
+      "Diệp yêu Phương rất nhiều", "Tình yêu của anh là dành cho em mãi mãi",
+      "Bên em, anh thấy rất hạnh phúc", "Em là định mệnh của anh",
       "Yêu em là điều tuyệt vời nhất anh từng làm"
     ];
 
     const phrasesContainer = document.getElementById('phrases');
-    phrases.forEach((text, index) => {
+    phrases.forEach(text => {
       const phrase = document.createElement('div');
       phrase.className = 'phrase';
       phrase.textContent = text;
       phrase.style.left = `${Math.random() * 100}vw`;
       phrase.style.top = `${Math.random() * 100}vh`;
-      phrase.style.zIndex = Math.floor(Math.random() * 10);
-      phrase.style.transform = `translateZ(${Math.random() * 200 - 100}px) scale(${0.7 + Math.random() * 0.3})`;
       phrasesContainer.appendChild(phrase);
     });
 
-    // Generate hearts
-    const heartsContainer = document.getElementById('hearts');
-    const numHearts = 20;
-
-    for (let i = 0; i < numHearts; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerHTML = '♥';
-      heart.style.left = `${Math.random() * 100}vw`;
-      heart.style.top = `${Math.random() * 100}vh`;
-      heart.style.zIndex = Math.floor(Math.random() * 10);
-      heart.style.transform = `translateZ(${Math.random() * 200 - 100}px) scale(${0.5 + Math.random() * 0.5})`;
-      heart.style.opacity = 0.7 + Math.random() * 0.3;
-      heartsContainer.appendChild(heart);
-    }
-
-    // Animate phrases
     document.querySelectorAll('.phrase').forEach(phrase => {
       anime({
         targets: phrase,
         translateX: () => anime.random(-200, 200),
         translateY: () => anime.random(-200, 200),
-        translateZ: () => anime.random(-100, 100),
-        duration: () => anime.random(10000, 20000),
+        duration: anime.random(10000, 20000),
         easing: 'easeInOutSine',
         direction: 'alternate',
         loop: true
       });
     });
 
-    // Animate hearts
+    const heartsContainer = document.getElementById('hearts');
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '♥';
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.top = `${Math.random() * 100}vh`;
+      heartsContainer.appendChild(heart);
+    }
+
     document.querySelectorAll('.heart').forEach(heart => {
       anime({
         targets: heart,
         translateX: () => anime.random(-150, 150),
         translateY: () => anime.random(-150, 150),
-        translateZ: () => anime.random(-100, 100),
-        duration: () => anime.random(8000, 15000),
-        easing: 'easeInOutQuad',
+        duration: anime.random(8000, 15000),
+        easing: 'easeInOutSine',
         direction: 'alternate',
         loop: true
       });
     });
 
-    // Center heart interaction
-    const centerHeart = document.querySelector('.center-heart');
+    // Heart click interaction
+    const centerHeart = document.getElementById('heart');
     const messageBox = document.getElementById('messageBox');
-    const yesButton = document.getElementById('yesButton');
-    const fallingHeartsContainer = document.getElementById('falling-hearts');
     const finalMessage = document.getElementById('finalMessage');
 
-    let autoClickTimeout;
-
     centerHeart.addEventListener('click', () => {
-      centerHeart.style.display = 'none';
       messageBox.style.display = 'block';
-      anime({
-        targets: messageBox,
-        scale: [0, 1],
-        opacity: [0, 1],
-        duration: 1000,
-        easing: 'easeOutElastic(1, .6)'
-      });
-      // Set timeout to auto-click the "Có" button after 15 seconds
-      autoClickTimeout = setTimeout(() => {
-        if (messageBox.style.display === 'block') {
-          yesButton.click();
-        }
-      }, 20000);
     });
 
-    // Continuous falling hearts effect and final message
-    let isRaining = false;
-    function createHeartBatch() {
-      if (!isRaining) return;
-      const numHeartsPerBatch = 10; // Number of hearts per batch
-      for (let i = 0; i < numHeartsPerBatch; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'falling-heart';
-        heart.innerHTML = '♥';
-        heart.style.left = `${Math.random() * 100}vw`;
-        heart.style.top = `-${Math.random() * 20}vh`;
-        heart.style.opacity = 0.7 + Math.random() * 0.3;
-        fallingHeartsContainer.appendChild(heart);
-
-        anime({
-          targets: heart,
-          translateY: '100vh',
-          translateX: () => anime.random(-50, 50),
-          rotate: () => anime.random(-45, 45),
-          duration: () => anime.random(2000, 4000),
-          easing: 'easeInQuad',
-          complete: () => heart.remove()
-        });
-      }
-    }
-
-    yesButton.addEventListener('click', () => {
-      // Clear the timeout to prevent duplicate auto-clicks
-      clearTimeout(autoClickTimeout);
+    document.getElementById('yesButton').addEventListener('click', () => {
       messageBox.style.display = 'none';
-      // Hide all phrases
-      phrasesContainer.style.display = 'none';
-      // Show final message
       finalMessage.style.display = 'block';
-      anime({
-        targets: finalMessage,
-        scale: [0, 1],
-        opacity: [0, 1],
-        duration: 1000,
-        easing: 'easeOutElastic(1, .6)'
-      });
-      // Start continuous heart rain
-      isRaining = true;
-      createHeartBatch(); // Start immediately
-      setInterval(createHeartBatch, 1000); // Create new batches every second
     });
   </script>
 </body>
