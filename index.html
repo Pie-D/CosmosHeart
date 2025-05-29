@@ -49,8 +49,8 @@
     .heart {
       position: absolute;
       color: #ff4d4d;
-      font-size: 1.5rem;
-      text-shadow: 0 0 8px rgba(255, 77, 77, 0.8);
+      font-size: 2rem;
+      text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
       pointer-events: none;
     }
 
@@ -58,8 +58,8 @@
     .falling-heart {
       position: absolute;
       color: #ff4d4d;
-      font-size: 1rem;
-      text-shadow: 0 0 8px rgba(255, 77, 77, 0.8);
+      font-size: 1.5rem;
+      text-shadow: 0 0 10px rgba(255, 77, 77, 0.8);
       pointer-events: none;
     }
 
@@ -68,8 +68,8 @@
       position: absolute;
       color: #fff;
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(1.2rem, 3.5vw, 2rem);
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 77, 77, 0.5);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 0 0 25px rgba(255, 77, 77, 0.5);
       white-space: nowrap;
       pointer-events: none;
     }
@@ -80,9 +80,9 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 4rem;
+      font-size: 5rem;
       color: #ff4d4d;
-      text-shadow: 0 0 15px rgba(255, 77, 77, 0.8);
+      text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
       cursor: pointer;
       z-index: 100;
       transition: transform 0.3s ease;
@@ -99,27 +99,26 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background: rgba(0, 0, 0, 0.7);
-      padding: 1.5rem;
-      border-radius: 12px;
+      padding: 2rem;
+      border-radius: 15px;
       text-align: center;
       color: #fff;
       font-family: 'Great Vibes', cursive;
-      font-size: 1.8rem;
+      font-size: 2rem;
       z-index: 101;
       display: none;
-      box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
-      max-width: 90%;
+      box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
     }
 
     .message-box button {
-      margin-top: 0.8rem;
-      padding: 0.4rem 1.5rem;
+      margin-top: 1rem;
+      padding: 0.5rem 2rem;
       font-family: 'Great Vibes', cursive;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       color: #fff;
       background: #ff4d4d;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
@@ -128,28 +127,51 @@
       background: #e63939;
     }
 
-    /* Responsive adjustments for iPhone 11 (~414px viewport width) */
-    @media (max-width: 414px) {
+    /* Final message */
+    .final-message {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 77, 77, 0.6);
+      text-align: center;
+      z-index: 50;
+      display: none;
+      pointer-events: none;
+    }
+
+    .final-message .date {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-top: 0.5rem;
+    }
+
+    /* Ensure responsiveness */
+    @media (max-width: 768px) {
       .phrase {
-        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        font-size: clamp(1rem, 3vw, 1.5rem);
       }
-      .heart {
+      .heart, .falling-heart {
         font-size: 1rem;
-      }
-      .falling-heart {
-        font-size: 0.8rem;
       }
       .center-heart {
-        font-size: 2.5rem;
+        font-size: 3rem;
       }
       .message-box {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         padding: 1rem;
-        max-width: 80%;
       }
       .message-box button {
-        font-size: 1rem;
-        padding: 0.3rem 1.2rem;
+        font-size: 1.2rem;
+        padding: 0.4rem 1.5rem;
+      }
+      .final-message {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+      }
+      .final-message .date {
+        font-size: clamp(1rem, 2vw, 1.5rem);
       }
     }
 
@@ -174,6 +196,10 @@
         <p>Em có đồng ý làm người yêu anh không?</p>
         <button id="yesButton">Có</button>
       </div>
+      <div class="final-message" id="finalMessage">
+        <div>Anh và Em là của nhau</div>
+        <div class="date">D-P  <29/05/2025>  P-D</div>
+      </div>
     </div>
   </div>
 
@@ -182,12 +208,12 @@
   <script>
     // Generate stars
     const starsContainer = document.querySelector('.stars');
-    const numStars = 150; // Reduced for better performance on mobile
+    const numStars = 200;
 
     for (let i = 0; i < numStars; i++) {
       const star = document.createElement('div');
       star.className = 'star';
-      star.style.width = `${Math.random() * 2 + 1}px`;
+      star.style.width = `${Math.random() * 3 + 1}px`;
       star.style.height = star.style.width;
       star.style.left = `${Math.random() * 100}vw`;
       star.style.top = `${Math.random() * 100}vh`;
@@ -209,14 +235,12 @@
       "Em là giấc mơ ngọt ngào nhất của anh",
       "Anh sẽ mãi bên em, mãi mãi",
       "Em là ngôi sao sáng nhất của anh",
-      "Tình yêu của chúng ta như bầu trời đêm",
+      "Phương ơi, anh yêu em",
       "Anh nguyện dành cả đời để yêu thương em",
       "Em là nhịp đập của trái tim anh",
       "Mỗi ngày bên em là một ngày hạnh phúc",
       "Anh yêu nụ cười của em",
       "Em là tất cả những gì anh mơ ước",
-      "Tình yêu của anh là dành cho em mãi mãi",
-      "Bên em, anh tìm thấy ý nghĩa cuộc đời",
       "Em là định mệnh của anh",
       "Yêu em là điều tuyệt vời nhất anh từng làm"
     ];
@@ -229,13 +253,13 @@
       phrase.style.left = `${Math.random() * 100}vw`;
       phrase.style.top = `${Math.random() * 100}vh`;
       phrase.style.zIndex = Math.floor(Math.random() * 10);
-      phrase.style.transform = `translateZ(${Math.random() * 150 - 75}px) scale(${0.6 + Math.random() * 0.3})`;
+      phrase.style.transform = `translateZ(${Math.random() * 200 - 100}px) scale(${0.7 + Math.random() * 0.3})`;
       phrasesContainer.appendChild(phrase);
     });
 
     // Generate hearts
     const heartsContainer = document.getElementById('hearts');
-    const numHearts = 15; // Reduced for mobile performance
+    const numHearts = 20;
 
     for (let i = 0; i < numHearts; i++) {
       const heart = document.createElement('div');
@@ -244,7 +268,7 @@
       heart.style.left = `${Math.random() * 100}vw`;
       heart.style.top = `${Math.random() * 100}vh`;
       heart.style.zIndex = Math.floor(Math.random() * 10);
-      heart.style.transform = `translateZ(${Math.random() * 150 - 75}px) scale(${0.4 + Math.random() * 0.4})`;
+      heart.style.transform = `translateZ(${Math.random() * 200 - 100}px) scale(${0.5 + Math.random() * 0.5})`;
       heart.style.opacity = 0.7 + Math.random() * 0.3;
       heartsContainer.appendChild(heart);
     }
@@ -253,9 +277,9 @@
     document.querySelectorAll('.phrase').forEach(phrase => {
       anime({
         targets: phrase,
-        translateX: () => anime.random(-150, 150),
-        translateY: () => anime.random(-150, 150),
-        translateZ: () => anime.random(-75, 75),
+        translateX: () => anime.random(-200, 200),
+        translateY: () => anime.random(-200, 200),
+        translateZ: () => anime.random(-100, 100),
         duration: () => anime.random(10000, 20000),
         easing: 'easeInOutSine',
         direction: 'alternate',
@@ -267,9 +291,9 @@
     document.querySelectorAll('.heart').forEach(heart => {
       anime({
         targets: heart,
-        translateX: () => anime.random(-100, 100),
-        translateY: () => anime.random(-100, 100),
-        translateZ: () => anime.random(-75, 75),
+        translateX: () => anime.random(-150, 150),
+        translateY: () => anime.random(-150, 150),
+        translateZ: () => anime.random(-100, 100),
         duration: () => anime.random(8000, 15000),
         easing: 'easeInOutQuad',
         direction: 'alternate',
@@ -282,6 +306,9 @@
     const messageBox = document.getElementById('messageBox');
     const yesButton = document.getElementById('yesButton');
     const fallingHeartsContainer = document.getElementById('falling-hearts');
+    const finalMessage = document.getElementById('finalMessage');
+
+    let autoClickTimeout;
 
     centerHeart.addEventListener('click', () => {
       centerHeart.style.display = 'none';
@@ -293,13 +320,19 @@
         duration: 1000,
         easing: 'easeOutElastic(1, .6)'
       });
+      // Set timeout to auto-click the "Có" button after 15 seconds
+      autoClickTimeout = setTimeout(() => {
+        if (messageBox.style.display === 'block') {
+          yesButton.click();
+        }
+      }, 20000);
     });
 
-    // Continuous falling hearts effect
+    // Continuous falling hearts effect and final message
     let isRaining = false;
     function createHeartBatch() {
       if (!isRaining) return;
-      const numHeartsPerBatch = 8; // Reduced for iPhone 11 performance
+      const numHeartsPerBatch = 10; // Number of hearts per batch
       for (let i = 0; i < numHeartsPerBatch; i++) {
         const heart = document.createElement('div');
         heart.className = 'falling-heart';
@@ -312,7 +345,7 @@
         anime({
           targets: heart,
           translateY: '100vh',
-          translateX: () => anime.random(-30, 30),
+          translateX: () => anime.random(-50, 50),
           rotate: () => anime.random(-45, 45),
           duration: () => anime.random(2000, 4000),
           easing: 'easeInQuad',
@@ -322,10 +355,24 @@
     }
 
     yesButton.addEventListener('click', () => {
+      // Clear the timeout to prevent duplicate auto-clicks
+      clearTimeout(autoClickTimeout);
       messageBox.style.display = 'none';
+      // Hide all phrases
+      phrasesContainer.style.display = 'none';
+      // Show final message
+      finalMessage.style.display = 'block';
+      anime({
+        targets: finalMessage,
+        scale: [0, 1],
+        opacity: [0, 1],
+        duration: 1000,
+        easing: 'easeOutElastic(1, .6)'
+      });
+      // Start continuous heart rain
       isRaining = true;
       createHeartBatch(); // Start immediately
-      setInterval(createHeartBatch, 1200); // Slightly slower interval for mobile
+      setInterval(createHeartBatch, 1000); // Create new batches every second
     });
   </script>
 </body>
